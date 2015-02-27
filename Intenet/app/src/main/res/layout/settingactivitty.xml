@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Specific App"
+        android:id="@+id/btSpfic"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.11" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Developer"
+        android:id="@+id/btDvlpr"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.10" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edSrch"
+        android:hint="Search"
+        android:background="@color/abc_search_url_text_normal"
+        android:layout_weight="0.07" />
+
+    <Button
+        android:layout_width="282dp"
+        android:layout_height="wrap_content"
+        android:text="Serach"
+        android:id="@+id/btSearch"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.07" />
+</LinearLayout>
