@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:jose="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".Todo">
+<item android:id="@+id/Add"
+    android:icon="@android:drawable/ic_input_add"
+    android:title="ADD"
+    jose:showAsAction="always"></item>
+    <item android:id="@+id/Like"
+        android:icon="@drawable/fbicon"
+        android:title="Like"
+        jose:showAsAction="always"></item>
+</menu>
