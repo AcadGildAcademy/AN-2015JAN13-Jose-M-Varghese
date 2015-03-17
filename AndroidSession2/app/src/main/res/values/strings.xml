@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AndroidSession2</string>
+    <string name="signin">SIGN IN</string>
+    <string name="cancel">CANCEL</string>
+    <string name="name">Enter your User Name...!</string>
+    <string name="pasword">Enter Your Password ...!</string>
+
+</resources>

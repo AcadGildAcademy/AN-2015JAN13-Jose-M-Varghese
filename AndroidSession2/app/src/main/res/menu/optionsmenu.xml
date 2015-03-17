@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:jose="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".welcomescreen"
+    >
+
+    <item
+        android:icon="@drawable/abc_btn_check_material"
+        android:title="options Menu"
+        jose:showAsAction="ifRoom">
+
+    </item>
+    <item
+        android:icon="@android:drawable/btn_plus"
+        android:title="options Menu2"
+        jose:showAsAction="ifRoom">
+    </item>
+</menu>
