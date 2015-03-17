@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,9 +14,9 @@ import java.util.List;
  */
 public class MyAdapter extends ArrayAdapter<Details> {
     private final Context context;
-    private final ArrayList<Details> dtlsArraylist;
+    private final List<Details> dtlsArraylist;
 
-    public MyAdapter(Context context,  ArrayList<Details> dtlsArraylist) {
+    public MyAdapter(Context context,  List<Details> dtlsArraylist) {
         super(context, R.layout.row, dtlsArraylist);
         this.context=context;
         this.dtlsArraylist = dtlsArraylist;
@@ -34,5 +33,11 @@ public class MyAdapter extends ArrayAdapter<Details> {
         descr.setText(dtlsArraylist.get(position).getDdesc());
         dates.setText(dtlsArraylist.get(position).getDdate());
         return rowView;
+    }
+
+    public void updateList(List<Details> newList) {
+        dtlsArraylist.clear();
+        dtlsArraylist.addAll(newList);
+        this.notifyDataSetChanged();
     }
 }
