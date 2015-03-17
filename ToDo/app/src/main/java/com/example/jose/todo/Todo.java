@@ -68,16 +68,24 @@ public class Todo extends ActionBarActivity {
         setContentView(R.layout.todo);
 
         getActionBar();
-        lstView=(ListView) findViewById(R.id.listView);
+      /*  lstView=(ListView) findViewById(R.id.listView);
         contacts=new ArrayList<String>();
-        for(int i=0;i<10;i++) {
+      for(int i=0;i<10;i++) {
             contacts.add("item"+i);
         }
         ArrayAdapter<String> adp = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,contacts);
-        lstView.setAdapter(adp);
+        lstView.setAdapter(adp);*/
+        MyAdapter adapter = new MyAdapter(this, generateData());
+        lstView=(ListView) findViewById(R.id.listView);
+        lstView.setAdapter(adapter);
 
     }
-
+private ArrayList<Details> generateData(){
+    ArrayList<Details> dtls = new ArrayList<Details>();
+    //dtls.add("JOSE","JOSEMV");
+    dtls.add(new Details("Jose","jose","jose"));
+    return dtls;
+}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -115,13 +123,10 @@ public class Todo extends ActionBarActivity {
                // alertdlg.setView(date);
                 lyout.addView(date);
                 alertdlg.setView(lyout);
-
-
                 alertdlg.setPositiveButton("Save",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                       // title = setTitle.getText().toString();
                         String title=setTitle.getText().toString();
                         String descp = desc.getText().toString();
                         int day = date.getDayOfMonth();
@@ -131,8 +136,10 @@ public class Todo extends ActionBarActivity {
                         datPi=datPi+"/"+ Integer.toString(month);
                         datPi=datPi+"/"+Integer.toString(year);
                         Toast.makeText(getApplicationContext(), ""+datPi+descp+title, Toast.LENGTH_LONG).show();
-                        Database newDb = new Database(this);
-                        newDb.adDetails(new Details(title,descp,datPi));
+                        Database newDb = new Database(Todo.this);
+                       newDb.adDetails(new Details(title,descp,datPi));
+
+
                     }
                 });
 
@@ -140,7 +147,7 @@ public class Todo extends ActionBarActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(getApplicationContext(),"clicked on add and cancel",Toast.LENGTH_LONG).show();
-
+                    dialog.dismiss();
                     }
                 });
                 AlertDialog alrtdg= alertdlg.create();

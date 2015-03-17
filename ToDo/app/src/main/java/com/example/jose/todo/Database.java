@@ -2,8 +2,12 @@ package com.example.jose.todo;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by manjusha on 3/13/2015.
@@ -26,7 +30,7 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String Contact_Table = "CREATE TABLE "+TABLE_NAME+"("+KEY_ID+"INTEGER PRIMARY KEY,"+KEY_TITLE+"TEXT,"
-                +KEY_DESCRIPTION+"TEXT,"+KEY_DATE+"TEXT,"+KEY_STATUS+"PRIMARY KEY,"+")";
+                +KEY_DESCRIPTION+"TEXT,"+KEY_DATE+"TEXT,"+KEY_STATUS+"INTEGER"+")";
         db.execSQL(Contact_Table);
     }
 
@@ -36,7 +40,7 @@ public class Database extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    Void adDetails(Details dtls){
+    void adDetails(Details dtls){
         SQLiteDatabase db =  this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_TITLE,dtls.getDtitle());
@@ -45,4 +49,21 @@ public class Database extends SQLiteOpenHelper {
         db.insert(TABLE_NAME, null, values);
         db.close();
     }
+    public List<Details>getAllData(){
+        List<Details>databasedtls = new ArrayList<Details>();
+        String selectQuery = "SELECT * FROM  "+TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor crser = db.rawQuery(selectQuery,null);
+        if(crser.moveToFirst()){
+            do{
+                    Details datls=new Details();
+                    datls.setDtitle(crser.getString(1));
+                datls.setDdesc(crser.getString(2));
+                datls.setDdate(crser.getString(3));
+                databasedtls.add(datls);
+            }while (crser.moveToNext());
+        }
+        return databasedtls;
+    }
+
 }
