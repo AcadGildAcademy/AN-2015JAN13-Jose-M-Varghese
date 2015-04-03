@@ -21,7 +21,8 @@ public class Todo extends ActionBarActivity {
    String title;
    String descp;
    String datPi ;
-   int day ;
+    MyAdapter adapter;
+    int day ;
    int month;
    int year;
    EditText setTitle;
@@ -29,7 +30,6 @@ public class Todo extends ActionBarActivity {
    DatePicker date;
    ListView lstView;
    ArrayList<String> contacts;
-    MyAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,16 +43,12 @@ public class Todo extends ActionBarActivity {
         }
         ArrayAdapter<String> adp = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,contacts);
         lstView.setAdapter(adp);*/
-       adapter = new MyAdapter(this, generateData());
+        Database getDb = new Database(Todo.this);
+        adapter = new MyAdapter(this,R.layout.row, getDb.getAllData());
         lstView=(ListView) findViewById(R.id.listView);
         lstView.setAdapter(adapter);
 
     }
-private List<Details> generateData(){
-    Database newDb = new Database(Todo.this);
-    List<Details> dtls = newDb.getAllData();
-    return dtls;
-}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -93,7 +89,6 @@ private List<Details> generateData(){
                 alertdlg.setPositiveButton("Save",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                         String title=setTitle.getText().toString();
                         String descp = desc.getText().toString();
                         int day = date.getDayOfMonth();
@@ -105,10 +100,8 @@ private List<Details> generateData(){
                         Toast.makeText(getApplicationContext(), ""+datPi+descp+title, Toast.LENGTH_LONG).show();
                         Database newDb = new Database(Todo.this);
                        newDb.adDetails(new Details(title,descp,datPi));
-
-                        List<Details> detail=newDb.getAllData();
-                        adapter.updateList(detail);
-
+                        List<Details> getDtls = newDb.getAllData();
+                       // adapter.updateList(getDtls);
 
                     }
                 });
