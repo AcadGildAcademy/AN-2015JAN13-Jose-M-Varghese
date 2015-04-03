@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by jose on 3/13/2015.
+ * Created by manjusha on 3/13/2015.
  */
 public class Database extends SQLiteOpenHelper {
 
@@ -29,15 +29,14 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-       // String Contact_Table = "CREATE TABLE "+TABLE_NAME+" ( "+ KEY_ID +" INT  PRIMARY KEY, "+ KEY_TITLE +" TEXT, "+ KEY_DESCRIPTION +" TEXT, "+ KEY_DATE +" TEXT, "+ KEY_STATUS +" INT "+" ) ";
-        String Contact_Table = "CREATE TABLE "+TABLE_NAME+"("+KEY_ID+" INTEGER PRIMARY KEY,"+KEY_TITLE+" TEXT,"+
-                KEY_DESCRIPTION+" TEXT,"+KEY_DATE+" TEXT,"+KEY_STATUS+" INTEGER"+")";
-                db.execSQL(Contact_Table);
+        String Contact_Table = "CREATE TABLE "+TABLE_NAME+"("+KEY_ID+" INTEGER PRIMARY KEY,"+KEY_TITLE+" TEXT,"
+                +KEY_DESCRIPTION+" TEXT,"+KEY_DATE+" TEXT,"+KEY_STATUS+" INTEGER"+")";
+        db.execSQL(Contact_Table);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS"+TABLE_NAME);
         onCreate(db);
     }
 
@@ -47,19 +46,18 @@ public class Database extends SQLiteOpenHelper {
         values.put(KEY_TITLE,dtls.getDtitle());
         values.put(KEY_DESCRIPTION,dtls.getDdesc() );
         values.put(KEY_DATE, dtls.getDdate());
-        values.put(KEY_STATUS, 0);
         db.insert(TABLE_NAME, null, values);
         db.close();
     }
-    public List<Details> getAllData(){
+    public List<Details>getAllData(){
         List<Details>databasedtls = new ArrayList<Details>();
-        String selectQuery = "SELECT * FROM  "+ TABLE_NAME;
+        String selectQuery = "SELECT * FROM  "+TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor crser = db.rawQuery(selectQuery,null);
         if(crser.moveToFirst()){
             do{
-                Details datls=new Details();
-                datls.setDtitle(crser.getString(1));
+                    Details datls=new Details();
+                    datls.setDtitle(crser.getString(1));
                 datls.setDdesc(crser.getString(2));
                 datls.setDdate(crser.getString(3));
                 databasedtls.add(datls);

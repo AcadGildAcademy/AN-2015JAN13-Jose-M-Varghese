@@ -7,17 +7,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by jose on 3/17/2015.
+ * Created by manjusha on 3/17/2015.
  */
 public class MyAdapter extends ArrayAdapter<Details> {
     private final Context context;
-    private  List<Details> dtlsArraylist;
+    private final List<Details> dtlsArraylist;
 
-    public MyAdapter(Context context, int x, List<Details> dtlsArraylist) {
+    public MyAdapter(Context context,  List<Details> dtlsArraylist) {
         super(context, R.layout.row, dtlsArraylist);
         this.context=context;
         this.dtlsArraylist = dtlsArraylist;
@@ -35,10 +34,10 @@ public class MyAdapter extends ArrayAdapter<Details> {
         dates.setText(dtlsArraylist.get(position).getDdate());
         return rowView;
     }
-   /* public void updateList(List<Details>newList)
-    {
+
+    public void updateList(List<Details> newList) {
         dtlsArraylist.clear();
         dtlsArraylist.addAll(newList);
         this.notifyDataSetChanged();
-    }*/
+    }
 }

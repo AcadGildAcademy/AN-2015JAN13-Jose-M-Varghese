@@ -4,7 +4,6 @@ package com.example.jose.todo;
  * Created by jose on 3/13/2015.
  */
 public class Details {
-
     private int Did ;
     private String Dtitle ;
     private String Ddesc;
