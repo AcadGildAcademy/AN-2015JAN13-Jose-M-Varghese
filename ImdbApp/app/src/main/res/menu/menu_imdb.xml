@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".ImdbActivity">
+    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+        android:orderInCategory="100" app:showAsAction="always"
+        android:icon="@drawable/ic_menu_filter">
+        <menu>
+            <item android:id="@+id/mostpopular"
+                android:title="Most Popular"
+                >
+
+            </item>
+            <item android:id="@+id/upcomingmovies"
+                android:title="Upcoming Movies"
+                ></item>
+            <item android:id="@+id/latestmovies"
+                android:title="Latest Movies"
+                ></item>
+            <item android:id="@+id/nowplaying"
+                android:title="	Now Playing "
+               ></item>
+            <item android:id="@+id/toprated"
+                android:title="Top Rated"
+
+                ></item>
+        </menu>
+        </item>
+</menu>

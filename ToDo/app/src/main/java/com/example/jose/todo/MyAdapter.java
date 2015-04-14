@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * Created by manjusha on 3/17/2015.
+ * Created by jose on 3/17/2015.
  */
 public class MyAdapter extends ArrayAdapter<Details> {
     private final Context context;

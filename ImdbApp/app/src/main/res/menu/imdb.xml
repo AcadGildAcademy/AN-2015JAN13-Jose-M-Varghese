@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:Imdb="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".ImdbActivity">
+
+<item android:id="@+id/myFavorites"
+    android:title=" My Favorites "
+    Imdb:showAsAction="collapseActionView"
+   ></item>
+    <item android:id="@+id/watchlist"
+        android:title="My Watch List"
+        Imdb:showAsAction="collapseActionView"
+        ></item>
+    <item android:id="@+id/refresh"
+        android:title="Refresh"
+        Imdb:showAsAction="collapseActionView"
+        ></item>
+
+</menu>
