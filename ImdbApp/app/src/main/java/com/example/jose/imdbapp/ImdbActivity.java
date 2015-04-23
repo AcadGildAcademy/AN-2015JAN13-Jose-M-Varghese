@@ -8,6 +8,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -25,7 +27,7 @@ public class ImdbActivity extends ActionBarActivity {
     ListView lstView;
     private ProgressDialog pDialog;
     // Base URL to get  JSON
-    private static String url = "http://api.themoviedb.org/";
+   /* private static String url = "http://api.themoviedb.org/";
     private static String API_VERSION="3";
     private static final String TAG_RESULTS="results";
 // JSON Node names
@@ -39,7 +41,7 @@ public class ImdbActivity extends ActionBarActivity {
     private static final String TAG_TITLE="title";
     private static final String TAG_VIDEO="video";
     private static final String TAG_VOTE_AVERAGE="vote_average";
-    private static final String TAG_VOTE_COUNT="vote_count";
+    private static final String TAG_VOTE_COUNT="vote_count";*/
     JSONArray results = null;
     private List<MovieInfo> movieList;
 
@@ -48,10 +50,22 @@ public class ImdbActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imdb);
         getSupportActionBar();
-        movieList = new ArrayList<>();
-       adapter = new Adapter(this,R.layout.most_popular_row, movieList);
+        movieList = new ArrayList<MovieInfo>();
+       adapter = new Adapter(this.getBaseContext(),R.layout.most_popular_row, movieList);
        lstView=(ListView) findViewById(R.id.listView);
+       GetMovies gtMvs = new GetMovies(ImdbActivity.this);
+       gtMvs.execute("http://api.themoviedb.org/3/movie/popular?api_key=8496be0b2149805afa458ab8ec27560c");
        lstView.setAdapter(adapter);
+        lstView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Toast.makeText(getApplicationContext(),
+                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
+                        .show();
+            }
+        });
+
     }
 
 
@@ -77,6 +91,26 @@ public class ImdbActivity extends ActionBarActivity {
                 GetMovies gtMvs = new GetMovies(ImdbActivity.this);
                 gtMvs.execute("http://api.themoviedb.org/3/movie/popular?api_key=8496be0b2149805afa458ab8ec27560c");
                 break;
+            case R.id.upcomingmovies:
+                //Toast.makeText(getApplicationContext(), "Clicked on Most Popular", Toast.LENGTH_LONG).show();
+
+                GetMovies gtMvsUpcming = new GetMovies(ImdbActivity.this);
+                gtMvsUpcming.execute("http://api.themoviedb.org/3/movie/upcoming?api_key=8496be0b2149805afa458ab8ec27560c");
+                break;
+            case R.id.toprated:
+
+
+                GetMovies gtMvsTopRated = new GetMovies(ImdbActivity.this);
+                gtMvsTopRated.execute("http://api.themoviedb.org/3/movie/top_rated?api_key=f47dd4de64c6ef630c2b0d50a087cc33");
+                break;
+            case R.id.nowplaying:
+                GetMovies gtMvsNowPlyng = new GetMovies(ImdbActivity.this);
+                gtMvsNowPlyng.execute("http://api.themoviedb.org/3/movie/now_playing?api_key=f47dd4de64c6ef630c2b0d50a087cc33");
+                break;
+            case R.id.latestmovies:
+                GetMovies gtMvsLatestMovies = new GetMovies(ImdbActivity.this);
+                gtMvsLatestMovies.execute("http://api.themoviedb.org/3/movie/popular?api_key=8496be0b2149805afa458ab8ec27560c");
+                break;
 
         }
         //noinspection SimplifiableIfStatement
@@ -90,16 +124,18 @@ public class ImdbActivity extends ActionBarActivity {
     /**
      * Async task class to get json by making HTTP call
      * */
-   private class GetMovies extends AsyncTask<String ,Void,MovieInfo> {
+   private class GetMovies extends AsyncTask<String ,Void,List<MovieInfo>> {
 
         Context context;
         private GetMovies(Context context) {
-            this.context = context;
+        this.context=context;
         }
 
         @Override
-        protected MovieInfo doInBackground(String... url) {
+        protected List<MovieInfo> doInBackground(String... url) {
             // Creating service handler class instance
+            movieList=new ArrayList<MovieInfo>();
+
             ServiceHandler sh = new ServiceHandler();
 
             // Making a request to url and getting response
@@ -112,18 +148,18 @@ public class ImdbActivity extends ActionBarActivity {
                     JSONObject jsonObj = new JSONObject(jsonStr);
 
                     // Getting JSON Array node
-                    results = jsonObj.getJSONArray(TAG_RESULTS);
+                    results = jsonObj.getJSONArray(Constants.TAG_RESULTS);
 
                     // looping through All Contacts
                     for (int i = 0; i < results.length(); i++) {
                         JSONObject c = results.getJSONObject(i);
                         MovieInfo movieDetails=new MovieInfo();
-                        movieDetails.setFilmName(c.getString(TAG_ORIGINAL_TITLE));
-                        movieDetails.setReleaseDate(c.getString(TAG_RELEASE_DATE));
-                        movieDetails.setPosterPath(c.getString(TAG_POSTER_PATH));
-                        movieDetails.setVoteAvg(c.getString(TAG_VOTE_AVERAGE));
-                        movieDetails.setVoteCount(c.getString(TAG_VOTE_COUNT));
-                        // adding contact to contact list
+                        movieDetails.setFilmName(c.getString(Constants.TAG_ORIGINAL_TITLE));
+                        movieDetails.setReleaseDate(c.getString(Constants.TAG_RELEASE_DATE));
+                        movieDetails.setPosterPath(c.getString(Constants.TAG_POSTER_PATH));
+                        movieDetails.setVoteAvg(c.getString(Constants.TAG_VOTE_AVERAGE));
+                        movieDetails.setVoteCount(c.getString(Constants.TAG_VOTE_COUNT));
+                        movieDetails.setId(c.getString(Constants.TAG_ID));
                         movieList.add(movieDetails);
                     }               } catch (JSONException e) {
                     e.printStackTrace();
@@ -131,14 +167,19 @@ public class ImdbActivity extends ActionBarActivity {
             } else {
                 Log.e("ServiceHandler", "Couldn't get any data from the url");
             }
-            return null;
+            return movieList;
         }
         @Override
-        protected void onPostExecute(MovieInfo result) {
+        protected void onPostExecute(List<MovieInfo> result) {
             super.onPostExecute(result);
             if (result == null) {
 
                 Toast.makeText(context, "Unable to fetch data from server", Toast.LENGTH_LONG).show();
+            }
+            else {
+
+                Adapter setAdpter = new Adapter(ImdbActivity.this,R.layout.most_popular_row,result);
+                lstView.setAdapter(setAdpter);
             }
         }
 

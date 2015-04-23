@@ -1,6 +1,7 @@
 package com.example.jose.imdbapp;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +75,7 @@ public class Adapter extends ArrayAdapter<MovieInfo>{
             holder.fiveStarRating = (RatingBar) convertView.findViewById(R.id.fiveStarRating);
             holder.filmPoster = (ImageView) convertView.findViewById(R.id.poster);
             holder.voteCount = (TextView) convertView.findViewById(R.id.txtRating);
-
+            holder.singleStarRating=(RatingBar)convertView.findViewById(R.id.singleStarRating);
             convertView.setTag(holder);
 
         } else {
@@ -89,14 +90,18 @@ public class Adapter extends ArrayAdapter<MovieInfo>{
         holder.fiveStarRating.setRating(Float.parseFloat(getMovieInfo.getVoteAvg()) / 2);
         if (getMovieInfo.getPosterPath().equals("null")) {
             holder.filmPoster.setImageResource(R.drawable.film);
-        } else {
-            imageLoader.DisplayImage("http://image.tmdb.org/t/p/w500" + getMovieInfo.getPosterPath(), holder.filmPoster);
+            Log.e("Adapter","PosterPath==>"+getMovieInfo.getPosterPath());
+
+        }
+        else {
+            Log.e("Adapter", "PosterPath======>" + getMovieInfo.getPosterPath());
+
+            imageLoader.DisplayImage("http://image.tmdb.org/t/p/w500/"+getMovieInfo.getPosterPath(),holder.filmPoster);
         }
         holder.voteCount.setText("(" + getMovieInfo.getVoteAvg() + "/10) voted by " + getMovieInfo.getVoteCount() + " users");
-
+        holder.singleStarRating.setRating(Float.parseFloat(getMovieInfo.getVoteAvg())/10);
         return convertView;
 
+
     }
-
-
 }

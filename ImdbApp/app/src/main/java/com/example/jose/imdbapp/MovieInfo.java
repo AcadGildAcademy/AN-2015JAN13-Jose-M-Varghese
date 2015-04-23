@@ -10,8 +10,16 @@ public class MovieInfo {
     private String posterPath;
     private String voteAvg;
     private String voteCount;
-
+    private String id;
     public MovieInfo() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getFilmName() {
