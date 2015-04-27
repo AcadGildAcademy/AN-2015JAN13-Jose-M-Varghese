@@ -96,7 +96,7 @@ public class Adapter extends ArrayAdapter<MovieInfo>{
         else {
             Log.e("Adapter", "PosterPath======>" + getMovieInfo.getPosterPath());
 
-            imageLoader.DisplayImage("http://image.tmdb.org/t/p/w500/"+getMovieInfo.getPosterPath(),holder.filmPoster);
+            imageLoader.DisplayImage("http://image.tmdb.org/t/p/w45"+getMovieInfo.getPosterPath(),holder.filmPoster);
         }
         holder.voteCount.setText("(" + getMovieInfo.getVoteAvg() + "/10) voted by " + getMovieInfo.getVoteCount() + " users");
         holder.singleStarRating.setRating(Float.parseFloat(getMovieInfo.getVoteAvg())/10);

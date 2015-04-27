@@ -1,7 +1,7 @@
 package com.example.jose.imdbapp;
 
 /**
- * Created by manjusha on 4/16/2015.
+ * Created by jose on 4/16/2015.
  */
 public class Constants {
 

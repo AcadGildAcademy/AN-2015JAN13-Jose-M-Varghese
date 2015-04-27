@@ -8,8 +8,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -56,7 +54,7 @@ public class ImdbActivity extends ActionBarActivity {
        GetMovies gtMvs = new GetMovies(ImdbActivity.this);
        gtMvs.execute("http://api.themoviedb.org/3/movie/popular?api_key=8496be0b2149805afa458ab8ec27560c");
        lstView.setAdapter(adapter);
-        lstView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      /*  lstView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
@@ -64,7 +62,7 @@ public class ImdbActivity extends ActionBarActivity {
                         "Click ListItem Number " + position, Toast.LENGTH_LONG)
                         .show();
             }
-        });
+        });*/
 
     }
 
