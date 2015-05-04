@@ -8,6 +8,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -19,27 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ImdbActivity extends ActionBarActivity {
+public class ImdbActivity extends ActionBarActivity  {
 
     Adapter adapter;
     ListView lstView;
     private ProgressDialog pDialog;
-    // Base URL to get  JSON
-   /* private static String url = "http://api.themoviedb.org/";
-    private static String API_VERSION="3";
-    private static final String TAG_RESULTS="results";
-// JSON Node names
-    private static final String TAG_ADULT="adult";
-    private static final String TAG_BACKDROP_PATH="backdrop_path";
-    private static final String TAG_ID="id";
-    private static final String TAG_ORIGINAL_TITLE="original_title";
-    private static final String TAG_RELEASE_DATE="release_date";
-    private static final String TAG_POSTER_PATH="poster_path";
-    private static final String TAG_POPULARITY="popularity";
-    private static final String TAG_TITLE="title";
-    private static final String TAG_VIDEO="video";
-    private static final String TAG_VOTE_AVERAGE="vote_average";
-    private static final String TAG_VOTE_COUNT="vote_count";*/
     JSONArray results = null;
     private List<MovieInfo> movieList;
 
@@ -54,13 +40,51 @@ public class ImdbActivity extends ActionBarActivity {
        GetMovies gtMvs = new GetMovies(ImdbActivity.this);
        gtMvs.execute("http://api.themoviedb.org/3/movie/popular?api_key=8496be0b2149805afa458ab8ec27560c");
        lstView.setAdapter(adapter);
-      /*  lstView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lstView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
                 Toast.makeText(getApplicationContext(),
                         "Click ListItem Number " + position, Toast.LENGTH_LONG)
                         .show();
+            }
+        });
+        //-----
+        // Item Click Listener for the listview
+        //OnItemClickListener itemClickListener = new OnItemClickListener()
+       /* AdapterView.OnItemClickListener   itemClickListener=new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+            }
+        };
+        /*{
+            @Override
+            public void onItemClick(AdapterView<?> parent, View container, int position, long id) {
+                // Getting the Container Layout of the ListView
+                LinearLayout linearLayoutParent = (LinearLayout) container;
+
+                // Getting the inner Linear Layout
+                LinearLayout linearLayoutChild = (LinearLayout ) linearLayoutParent.getChildAt(1);
+
+                // Getting the Country TextView
+                TextView tvCountry = (TextView) linearLayoutChild.getChildAt(0);
+
+                Toast.makeText(getBaseContext(), tvCountry.getText().toString(), Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        // Setting the item click listener for the listview
+        lstView.setOnItemClickListener(itemClickListener);
+        //-----
+      /* lstView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
             }
         });*/
 
